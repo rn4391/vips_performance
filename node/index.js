@@ -4,6 +4,7 @@ var sharp = require('sharp');
 
 var targetHeight = [1000.0, 750.0, 500.0, 250.0, 100.0, 1500.0, 1000.0, 750.0, 500.0, 250.0, 100.0, 1500.0, 1000.0, 750.0, 500.0, 250.0, 100.0, 1500.0];
 
+//read all files in the input directory
 fs.readdir(process.argv[2], function(err, files) {
     if(err) return;
 
@@ -16,6 +17,8 @@ fs.readdir(process.argv[2], function(err, files) {
                 }
 
                 if(stat.isFile()) {
+                    //load the image and carry out the transformations
+                    //and save to file
                     var i = sharp(path.join(process.argv[2], filename));
 
                     i.metadata()

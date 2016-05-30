@@ -30,11 +30,6 @@ for f in listdir(sys.argv[1]):
             imageScale = h/im.height
             im = im.resize(imageScale)
             im = im.rot90()
-            # The height and width obtained after the previous two operations
-            # and not of the original one
-            # print(im.height)
-            # print(im.width);
             im = im.extract_area(10, 10, im.width - 20, im.height - 20)
             outfile = join(sys.argv[2], str(int(h)) +"_"+str(f))
-            # print("writing to file " + str(outfile))
             im.write_to_file(outfile)    

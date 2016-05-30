@@ -10,12 +10,12 @@ gi.require_version('Vips', '8.0')
 from gi.repository import Vips
 
 # clear the output directory
-print "clearing output directory - " + sys.argv[2]
+# print "clearing output directory - " + sys.argv[2]
 for f in listdir(sys.argv[2]):
     remove(join(sys.argv[2], f))
 
 fileName = ""
-targetHeight = [1000.0, 750.0, 500.0, 250.0, 100.0, 1500.0, 1000.0, 750.0, 500.0, 250.0, 100.0, 1500.0, 1000.0, 750.0, 500.0, 250.0, 100.0, 1500.0]
+targetHeight = [1000.0, 750.0, 500.0, 250.0, 100.0, 1000.0, 750.0, 500.0, 1000.0, 750.0, 500.0, 250.0, 100.0, 1000.0, 750.0, 500.0]
 imageScale = 0.0
 
 
@@ -28,11 +28,13 @@ for f in listdir(sys.argv[1]):
         for h in targetHeight:
             im = i;
             imageScale = h/im.height
-            im = im.similarity(scale = imageScale)
-            im = im.affine([0, -1, 1, 0])
+            im = im.resize(imageScale)
+            im = im.rot90()
             # The height and width obtained after the previous two operations
             # and not of the original one
             # print(im.height)
             # print(im.width);
             im = im.extract_area(10, 10, im.width - 20, im.height - 20)
-            im.write_to_file(join(sys.argv[2], str(int(h)) +"_"+str(f)))
+            outfile = join(sys.argv[2], str(int(h)) +"_"+str(f))
+            # print("writing to file " + str(outfile))
+            im.write_to_file(outfile)    
